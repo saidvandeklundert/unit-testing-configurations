@@ -1,0 +1,10 @@
+hostname {{ data['hostname'] }}
+
+access-list 1 remark mgmt
+{% for network in data['network_data']['ipv4_mgmt_network'] %}
+access-list 1 permit {{ network }}
+{% endfor %}
+access-list 1 deny any log
+
+
+snmp-server community {{ data['network_data']['snmp_community'] }} RO

@@ -1,0 +1,8 @@
+{{ data }} 
+
+{%- if data["vendor"] == "juniper" %}
+{% include 'juniper/main.j2' %}
+{%- elif data["vendor"] == "cisco" %}
+{% include 'cisco/main.j2' %}
+{%-endif %}
+

@@ -1,0 +1,19 @@
+set system host-name {{ data['hostname'] }}
+
+set firewall family inet filter mgmt term ssh from source-prefix-list mgmt-prefix
+set firewall family inet filter mgmt term ssh from protocol tcp
+set firewall family inet filter mgmt term ssh from port ssh
+set firewall family inet filter mgmt term ssh then accept
+set firewall family inet filter mgmt term netconf from source-prefix-list mgmt-prefix
+set firewall family inet filter mgmt term netconf from protocol udp
+set firewall family inet filter mgmt term netconf from port 830
+set firewall family inet filter mgmt term netconf then accept
+set firewall family inet filter mgmt term deny then log
+set firewall family inet filter mgmt term deny then discard
+
+{% for network in data['network_data']['ipv4_mgmt_network'] %}
+set policy-options prefix-list mgmt-prefix {{ network }}
+{% endfor %}
+
+set snmp community {{ data['network_data']['snmp_community'] }} authorization read-only
+set snmp community {{ data['network_data']['snmp_community'] }} client-list-name mgmt
