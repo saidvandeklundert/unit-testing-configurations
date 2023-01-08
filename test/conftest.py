@@ -4,6 +4,9 @@ from src.models import Device, NetworkData, Devices
 
 @pytest.fixture(scope="session")
 def devices():
+    """
+    Fixture that represents possible return from the SSOT service.
+    """
     network_data = NetworkData(
         **{
             "ipv4_mgmt_network": ["10.0.0.0/14", "10.200.0.0/14"],
@@ -12,7 +15,7 @@ def devices():
     )
     device_1 = Device(
         **{
-            "hostname": "par-cbs-a-r1",
+            "hostname": "par-cbs-a-1",
             "vendor": "cisco",
             "router_id": "192.168.1.1",
             "network_data": network_data,
@@ -20,7 +23,7 @@ def devices():
     )
     device_2 = Device(
         **{
-            "hostname": "tok-dar-c-r2",
+            "hostname": "tok-dar-c-2",
             "vendor": "juniper",
             "router_id": "192.168.1.2",
             "network_data": network_data,
